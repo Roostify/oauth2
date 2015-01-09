@@ -12,6 +12,15 @@ module OAuth2
       def from_hash(client, hash)
         new(client, hash.delete('access_token') || hash.delete(:access_token), hash)
       end
+      
+      # Initializes an AccessToken from a Hash with get_token_response
+      #
+      # @param [Client] the OAuth2::Client instance
+      # @param [Hash] a hash of AccessToken property values
+      # @return [AccessToken] the initalized AccessToken
+      def from_hash(client, hash, response)
+        new(client, hash.delete('access_token') || hash.delete(:access_token), hash.merge(response: response))
+      end
 
       # Initializes an AccessToken from a key/value application/x-www-form-urlencoded string
       #
@@ -49,6 +58,7 @@ module OAuth2
       @options = {:mode          => opts.delete(:mode) || :header,
                   :header_format => opts.delete(:header_format) || 'Bearer %s',
                   :param_name    => opts.delete(:param_name) || 'access_token'}
+      @get_token_response = opts.delete('get_token_response')
       @params = opts
     end
 
