@@ -18,7 +18,7 @@ module OAuth2
       # @param [Client] the OAuth2::Client instance
       # @param [Hash] a hash of AccessToken property values
       # @return [AccessToken] the initalized AccessToken
-      def from_hash(client, hash, response)
+      def from_hash_with_response(client, hash, response)
         new(client, hash.delete('access_token') || hash.delete(:access_token), hash.merge(response: response))
       end
 
